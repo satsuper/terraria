@@ -9,7 +9,7 @@ RUN unzip TShock_4.4.0_226_Pre3_Terraria1.4.0.2.zip -d /tshock && \
     rm TShock_4.4.0_226_Pre3_Terraria1.4.0.2.zip && \
     chmod +x /tshock/tshock/TerrariaServer.exe
 
-FROM mono:6.8.0.96-slim
+FROM mono:6.8.0.96
 
 LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
 
