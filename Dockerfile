@@ -11,10 +11,10 @@ RUN unzip TShock_4.4.0_226_Pre4v2_Terraria1.4.0.2.zip -d /tshock && \
 
 FROM mono:6.8.0.96
 
-LABEL maintainer="Ryan Sheehan <rsheehan@gmail.com>"
+LABEL maintainer="satsuper@users.noreply.github.com"
 
 # documenting ports
-EXPOSE 7777 7878
+EXPOSE 7777
 
 ENV WORLDPATH=/world
 ENV CONFIGPATH=/world
@@ -24,23 +24,19 @@ ENV LOGPATH=/tshock/logs
 COPY bootstrap.sh /tshock/bootstrap.sh
 
 # copy game files
-COPY --from=base /tshock/* /tshock
+COPY --from=base /tshock /tshock
 
-# install nuget to grab tshock dependencies
-RUN apt-get update -y && \
-    apt-get install -y nuget && \
-    rm -rf /var/lib/apt/lists/* /tmp/* && \
-    # create directories
-    mkdir /world && \
+
+RUN mkdir /world && \
     mkdir /plugins && \
     mkdir -p /tshock/logs && \
     chmod +x /tshock/bootstrap.sh
 
 # Allow for external data
-VOLUME ["/world", "/tshock/logs", "/plugins"]
+VOLUME ["/world", "/tshock/logs", "/tshock/ServerPlugins"]
 
 # Set working directory to server
 WORKDIR /tshock
 
-# run the bootstrap, which will copy the TShockAPI.dll before starting the server
+# run the bootstrap
 ENTRYPOINT [ "/bin/sh", "bootstrap.sh" ]
