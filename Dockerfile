@@ -28,7 +28,6 @@ COPY --from=base /tshock /tshock
 
 
 RUN mkdir /world && \
-    mkdir /plugins && \
     mkdir -p /tshock/logs && \
     chmod +x /tshock/bootstrap.sh
 
